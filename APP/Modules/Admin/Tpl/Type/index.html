@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="__Css__/common.css"/>
+    <link rel="stylesheet" type="text/css" href="__Css__/main.css"/>
+    <script type="text/javascript" src="__JS__/libs/modernizr.min.js"></script>
+</head>
+<body>
+<div class="crumb-wrap">
+    <div class="crumb-list"><i class="icon-font"></i><a target="_self" href="{:U(GROUP_NAME . '/Index/welcome')}">首页</a><span class="crumb-step">&gt;</span><span class="crumb-name">学校管理</span></div>
+</div>
+
+<div class="result-wrap">
+    <form name="myform" id="myform" method="post">
+        <div class="result-title">
+            <div class="result-list">
+                <a href="{:U(GROUP_NAME . '/Type/add')}" target="_self"><i class="icon-font"></i>新增分类</a>
+            </div>
+        </div>
+        <div class="result-content">
+            <table class="result-tab" width="100%">
+                <tr>
+                    <th class="tc" width="5%"><input class="allChoose" name="" type="checkbox"></th>
+                    <th>名称</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+                <foreach name = "list" item = "value">
+                    <tr>
+                        <td class="tc"><input name="id[]" value="59" type="checkbox"></td>
+                        <td>{$value.name}</td>
+                        <td>{$value.remark}</td>
+                        <td>
+                            <a class="link-del" href="{:U(GROUP_NAME . '/Type/remove?id='.$value[id])}">删除</a>
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+        </div>
+    </form>
+</div>
+</body>
+</html>

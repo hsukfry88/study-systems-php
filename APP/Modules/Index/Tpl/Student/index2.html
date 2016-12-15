@@ -1,0 +1,379 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>无标题文档</title>
+	<link href="__PUBLIC__/css/bootstrap.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="__PUBLIC__/js/jquery.js"></script>
+	<style>
+    
+	.container{
+		border: #CCC 1px solid;
+	}
+	.tk_container{
+		width:200px;
+		height:200px;
+		cursor:pointer;
+	}
+	.pass{
+		color:#99CC00 ;
+	}
+	.wait{
+		color:#FF3366;
+	}
+	#close_btn{
+		cursor:pointer;
+		margin:20px;
+	}
+	
+	#marks{
+			position:absolute;
+			z-index:5;
+			background-color:#ffffff;
+			width:100%;
+			height:100%;
+			display:none;
+	}
+	
+	#hide_container{
+		border:#CCC solid 1px; 
+		position:absolute; 
+		z-index:10; 
+		top:35%; 
+		background-color:#FFF; 
+		display:none; width:95%;
+		box-shadow: 2px 2px 5px #CCCCCC; 
+		border-radius:5px;
+		
+	}
+	
+		.workTitle{
+				cursor:pointer;
+				font-size:18px;
+			}
+			#workImg{
+				float:left;
+				margin-bottom:20px;
+				padding:10px;
+			}
+			#contentContainer{
+				float:left;
+				width:640px;
+				margin-left:60px;
+			}
+			#cotainer{
+				display:block;
+				width:1000px;
+
+				
+			}
+			#workList{
+				margin:30px;			
+				width:380px;
+				clear:both;	
+				
+				
+			}
+			#workeType{
+				display:none;
+			}
+			#close{
+				float:right;
+				margin-right:20px;
+				margin-bottom:20px;
+				
+			}
+			#parent{
+				width:95%;
+				
+				
+			}
+			#imgContainer{
+				width:480px;
+				float:left;
+				
+			}
+			#FLVPlayer{
+				display:none;
+			}
+			textarea{
+				width:650px;
+				height:200px;
+				float:right;	
+			}
+			#introTitle{
+				padding-top:10px;
+			}
+
+			#grade{
+				margin-top:30px;
+			}
+
+    
+    </style>
+</head>
+
+<body>
+
+<include file = "Index:header" />
+	
+    <!--主体内容区-->
+    <div class="container-fluid">
+  		<div class="row">
+        	
+        	<div class="col-md-2  col-sm-2"><img src="{$student.head|getURL=###}" width="100" height="100">
+            </div>
+            <div class="col-md-10 col-sm-10">
+            
+            	<div class="row">
+                	<div class="col-md-3 col-xs-6">姓名：{$student.name}</div>
+                </div>
+                
+                <div class="row">
+                	<div class="col-md-3 col-xs-3">学校:成都东软学院</div>
+                    <div class="col-md-3 col-xs-3">院系:数字艺术系</div>
+                    <div class="col-md-3 col-xs-3">专业:数字媒体技术</div>
+                    <div class="col-md-3 col-xs-3">通知：0条</div>
+                </div>
+                
+                <div class="row">
+                	<div class="col-md-3 col-xs-3">班级：1班</div>
+                    <div class="col-md-3 col-xs-3">QQ:{$student.qq}</div>
+                    <div class="col-md-3 col-xs-5">邮箱:{$student.mail}</div>
+                </div>
+                
+                <div class="row">
+                	
+                    <div class="col-md-8 col-sm-8"></div>
+                    <div class="col-md-4 col-sm-4">
+                    	<div class="row">
+                        	
+                            <a href="{:U(GROUP_NAME . '/Student/information')}" class="btn btn-default btn-sm">修改用户信息</a>
+                            
+                            <a href="{:U(GROUP_NAME . '/Student/addProduct')}" class="btn btn-primary btn-sm">提交个人作品</a>
+							
+                            
+                        </div>
+                    </div>
+                </div>
+            	
+            </div>
+        </div>
+        <hr>
+        
+        <div class="row">
+        
+        	<div class="col-md-3 col-sm-3">您所上传过的作品：</div>
+            <div class="col-md-9 col-sm-9">
+                
+                            <div class="row">
+                            	<div class="col-md-4 "></div>
+                                <div class="col-md-3 col-sm-4 ">
+                                	
+                                    <select>
+										<option>查看所有作品</option>
+                                    	<option>查看审核通过的作品</option>
+										<option>查看审核未通过的作品</option>
+                                    </select>
+                                	
+                                </div>
+                                
+
+                                
+                                
+                            </div>
+            </div>
+        </div>
+        
+        
+        <div class="row">
+        	<foreach name="product" item="vo">
+   				<div class="col-md-2">
+                   <img class="tk_container" src="{$vo.thumb|getURL=###}" />
+                   <div class="text-center workeName">作品名称：{$vo.name}</div>
+                   <div class="text-center">所属课程：{$vo.course}</div>
+                   <div class="text-center">上传时间：{$vo.subtime|date="Y/m/d",###}</div>
+                   <div class="text-center">审核状态：<span class="pass"><if condition="$vo['verify'] eq 1">审核通过<else />未审核</if></span></div>
+               </div>
+            </foreach>
+        </div>	
+        
+<!--隐藏弹框区域  开始-->
+<div id="hide_container" class="container-fluid">
+	<div class="text-right" id="close_btn">关闭</div>
+	<div id="parent">
+		<div id="container" >
+			<div id="imgContainer">
+				<img id="workImg"  src="" width="480" />
+				<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="480" height="320" id="FLVPlayer">
+					<param name="movie" value="__PUBLIC__/FLVPlayer_Progressive.swf" />
+					<param name="quality" value="high">
+					<param name="wmode" value="opaque">
+					<param name="scale" value="noscale">
+					<param name="salign" value="lt">
+					<param id="PlayUrl" name="FlashVars" value="&amp;MM_ComponentVersion=1&amp;skinName=__PUBLIC__/Clear_Skin_1&amp;streamName=;autoPlay=false&amp;autoRewind=false" />
+					<param name="swfversion" value="8,0,0,0">
+					<!-- 此 param 标签提示使用 Flash Player 6.0 r65 和更高版本的用户下载最新版本的 Flash Player。如果您不想让用户看到该提示，请将其删除。 -->
+					<param name="expressinstall" value="__PUBLIC__/Scripts/expressInstall.swf">
+					<!-- 下一个对象标签用于非 IE 浏览器。所以使用 IECC 将其从 IE 隐藏。 -->
+					<!--[if !IE]>-->
+					<object type="application/x-shockwave-flash" data="__PUBLIC__/FLVPlayer_Progressive.swf" width="480" height="320">
+						<!--<![endif]-->
+						<param name="quality" value="high">
+						<param name="wmode" value="opaque">
+						<param name="scale" value="noscale">
+						<param name="salign" value="lt">
+						<param name="FlashVars" value="&amp;MM_ComponentVersion=1&amp;skinName=__PUBLIC__/Clear_Skin_1&amp;streamName=1.1%E7%B1%B3%E7%9A%84%E5%8A%9B%E9%87%8F&amp;autoPlay=false&amp;autoRewind=false" />
+						<param name="swfversion" value="8,0,0,0">
+						<param name="expressinstall" value="__PUBLIC__/Scripts/expressInstall.swf">
+						<!-- 浏览器将以下替代内容显示给使用 Flash Player 6.0 和更低版本的用户。 -->
+						<div>
+							<h4>此页面上的内容需要较新版本的 Adobe Flash Player。</h4>
+							<p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="获取 Adobe Flash Player" /></a></p>
+						</div>
+						<!--[if !IE]>-->
+					</object>
+					<!--<![endif]-->
+				</object>
+						  
+				<div id="workList"></div>
+				  
+			</div>
+			
+			<div id="contentContainer">
+				<h4>作品名称：1.1米的力量</h4>					  
+				<div class="col-md-12">							
+					<span>作者：张三</span>
+					<span>年级:2012级</span>
+					<span>影视制作</span>
+				</div>
+										   
+				<div class="col-md-12">
+					<span>参与人：张三</span>
+					<span>年级:2012级</span>
+					<span>影视制作</span>
+				</div>
+						
+				<div class="col-md-12" id="grade">评分：90分</div>
+				<div class="col-md-12">作品所在展厅:无</div>
+						
+				<div class="col-md-12">
+					<h5 id="introTitle">作品简介:</h5>
+				</div>
+						
+				<div class="col-md-12" id='workContent'>
+					<p>清晨，在都江堰市太平场，“豆腐干儿”叫卖喇叭声在喧闹的乡场菜市边响起，那叫卖声的女主人叫陈萍，今年29岁，她是当地青城山镇桃花村9组的人。
+				从小身患侏儒症的陈萍，身高1.1米高，只相当于普通6、7岁的儿童的身高。陈萍的家，在当地低保家庭，家中有个年迈有病的婆婆，丈夫腿有残疾。
+				每天，凌晨，四周还没有一丝光亮，她就与丈夫起来做豆腐、炸豆腐干儿，天亮后她会去沿街叫卖。无论风雨，陈萍总会推着小小的自行车，穿行在乡场街边，让“卖豆腐干儿”声响传得那么悠远……生活虽然艰难，陈萍用自己的辛劳，换了周围人的认可，创出了享誉当地的名小吃、老少皆喜欢的“蒜香豆腐干儿”。通过陈萍那弱小的身躯，我们仿佛看到了一种超乎寻常的力量……
+					</p>
+				</div>
+								
+				<div class="col-md-12">
+					<h5 id="introTitle">教师点评:</h5>
+				</div>
+						
+				<div class="col-md-12" id='workreiver'>
+					<p>清晨，在都江堰市太平场，“豆腐干儿”叫卖喇叭声在喧闹的乡场菜市边响起，那叫卖声的女主人叫陈萍，今年29岁，她是当地青城山镇桃花村9组的人。
+				从小身患侏儒症的陈萍，身高1.1米高，只相当于普通6、7岁的儿童的身高。陈萍的家，在当地低保家庭，家中有个年迈有病的婆婆，丈夫腿有残疾。</p>
+				</div>
+			</div>
+		</div>
+	</div>     
+</div>
+<!--隐藏弹框区域  结束-->
+
+
+
+<script>
+$(function(){
+
+	
+	
+	var worke=[
+	   		{"name":"电影剧照1","url":"__PUBLIC__/Img/电影剧照1.JPG","type":"1"},
+	   		{"name":"电影剧照2","url":"Img/电影剧照2.JPG","type":"1"},
+	   		{"name":"电影剧照3","url":"Img/电影剧照3.JPG","type":"1"},
+	   		{"name":"电影剧照4","url":"Img/电影剧照4.JPG","type":"1"},
+	   		{"name":"1.1米的力量","url":"__PUBLIC__/one.mp4","type":"2"}
+	   	];
+	
+	
+	$('#close_btn').click(function(){
+		$('#hide_container').animate({
+			opacity: 'toggle',
+			},'slow'
+		);
+		
+		$('#marks').css({'display':'none'});
+				
+	});
+			
+	$('.tk_container').click(function(){
+		//初始化遮罩层尺寸
+		var marksHeightVal=$(document).height();
+		$('#marks').height(marksHeightVal).css({"opacity":0.8,"display":"block"});
+		//隐藏框相对于作品位移
+		var topPostion=$(this).offset();
+		topPostion=topPostion.top+20;
+		//alert(topPostion);
+		var X_Potion=($(document).width()-$('#hide_container').width())/2;
+		//alert(X_Potion);
+				
+		$('#hide_container').animate({
+			opacity: 'toggle',
+			diplay:'block',
+		},'slow'
+		).css({'display':'block','top':topPostion,'left':X_Potion-17});
+				
+		$('#title').html('titleName');
+	});
+			
+	init(worke);
+function init(worke){
+	/**
+		//JOSN数据
+	var worke=[
+		{"name":"电影剧照1","url":"__PUBLIC__/Img/电影剧照1.JPG","type":"1"},
+		{"name":"电影剧照2","url":"Img/电影剧照2.JPG","type":"1"},
+		{"name":"电影剧照3","url":"Img/电影剧照3.JPG","type":"1"},
+		{"name":"电影剧照4","url":"Img/电影剧照4.JPG","type":"1"},
+		{"name":"1.1米的力量","url":"one.mp4","type":"2"}
+	];
+	**/
+	$('#workImg').attr("src",worke[0].url);
+	$('#workList').html("");
+	for(var i=0;i<worke.length;i++){
+		var workType=worke[i].type;
+		//alert(workType);
+		var workName=worke[i].name;
+		var workUrl=worke[i].url;
+		$('#workList').append('<div class="workTitle"><h5>'+workName+'</h5><input class="ImgUrl" type=hidden value='+workUrl+'/>'+'<p id=workeType>'+workType+'</p></div>');
+	}
+}
+
+	$('.workTitle').click(function(){	
+		var workUrl=$(this).children(".ImgUrl").val();
+		var workType=$(this).children('#workeType').html();
+		//alert(workType);
+		if(workType=="2"){
+			$('#FLVPlayer').css({"display":"block"});
+			workUrl = "__PUBLIC__/one.flv";
+			$('#PlayUrl').attr('streamName',workUrl);
+			$('#workImg').hide();
+		}else{
+			$('#FLVPlayer').css({"display":"none"});
+			$('#workImg').show();
+			$('#workImg').attr('src',workUrl);
+		}
+		//alert(workUrl.val());
+						
+	});
+			
+})
+			
+</script>
+            
+</body>
+</html>

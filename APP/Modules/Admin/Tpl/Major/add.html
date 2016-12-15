@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="__Css__/common.css"/>
+    <link rel="stylesheet" type="text/css" href="__Css__/main.css"/>
+    <script type="text/javascript" src="__JS__/libs/modernizr.min.js"></script>
+</head>
+<body>
+<div class="crumb-wrap">
+    <div class="crumb-list"><i class="icon-font"></i><a href="{:U(GROUP_NAME . '/Index/welcome')}">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="{:U(GROUP_NAME . '/Major/index')}">专业管理</a><span class="crumb-step">&gt;</span><span>新增专业</span></div>
+</div>
+<div class="result-wrap">
+    <div class="result-content">
+        <form action="{:U(GROUP_NAME . '/Major/addAction')}" method="post" id="myform" name="myform">
+            <table class="insert-tab" width="100%">
+                <tbody>
+                    <tr>
+                        <th><i class="require-red">*</i>专业名称：</th>
+                        <td>
+                            <input class="common-text required" id="title" name="name" size="50" value="" type="text">
+                            <input type="hidden" name="school" value="3">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="120"><i class="require-red">*</i>作品类型：</th>
+                        <td>
+                            <select name="type" id="catid" class="required">
+                                <option value="0">请选择</option>
+                                <foreach name = "type" item = "value">
+                                    <option value="{$value.id}">{$value.name}</option>
+                                </foreach>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input class="btn btn-primary btn6 mr10" value="提交" type="submit">
+                            <input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
+                        </td>
+                    </tr>
+                </tbody></table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

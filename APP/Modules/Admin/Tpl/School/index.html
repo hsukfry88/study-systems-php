@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="__Css__/common.css"/>
+    <link rel="stylesheet" type="text/css" href="__Css__/main.css"/>
+    <script type="text/javascript" src="__JS__/libs/modernizr.min.js"></script>
+</head>
+<body>
+<div class="crumb-wrap">
+    <div class="crumb-list"><i class="icon-font"></i><a target="_self" href="{:U(GROUP_NAME . '/Index/welcome')}">首页</a><span class="crumb-step">&gt;</span><span class="crumb-name">学校管理</span></div>
+</div>
+<div class="search-wrap">
+    <div class="search-content">
+        <form action="#" method="post">
+            <table class="search-tab">
+                <tr>
+                    <th width="120">选择省份:</th>
+                    <td>
+                        <select name="search-sort" id="">
+                            <option value="全部">全部</option>
+                            <foreach name = "province" item = "value">
+                                <option value="{$value}">{$value}</option>
+                            </foreach>
+                        </select>
+                    </td>
+                    <th width="70">关键字:</th>
+                    <td><input class="common-text" placeholder="关键字" name="keywords" value="" id="" type="text"></td>
+                    <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<div class="result-wrap">
+    <form name="myform" id="myform" method="post">
+        <div class="result-title">
+            <div class="result-list">
+                <a href="{:U(GROUP_NAME . '/School/add')}" target="_self"><i class="icon-font"></i>新增学校</a>
+                <a id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
+            </div>
+        </div>
+        <div class="result-content">
+            <table class="result-tab" width="100%">
+                <tr>
+                    <th class="tc" width="5%"><input class="allChoose" name="" type="checkbox"></th>
+                    <th>省份</th>
+                    <th>学校名称</th>
+                    <th>操作</th>
+                </tr>
+                <foreach name = "list" item = "value">
+                    <tr>
+                        <td class="tc"><input name="id[]" value="59" type="checkbox"></td>
+                        <td>{$value.province}</td>
+                        <td title="{$value.name}"><a target="_blank" href="#" title="{$value.name}">{$value.name}</a>
+                        </td>
+                        <td>
+                            <a class="link-del" href="#">删除</a>
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+            <div class="list-page"><a href="{:U(GROUP_NAME . '/School/index?page='.$prepage)}">上一页</a> {$count} 条 {$page}/{$pages}页<a href="{:U(GROUP_NAME . '/School/index?page='.$nextpage)}">下一页</a></div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

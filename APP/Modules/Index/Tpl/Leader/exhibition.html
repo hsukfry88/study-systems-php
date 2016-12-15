@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>无标题文档</title>
+	<link href="__PUBLIC__/css/bootstrap.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/bootstrap-theme.css" rel="stylesheet">
+	<style>
+    
+	.container{
+		border: #CCC 1px solid;
+	}
+	.imgContainer{
+		position:relative;
+		width:200px;
+		height:200px;
+	}
+
+    .checkboxContainer{
+		position:absolute;
+		bottom:0px;
+		right:0px;
+		z-index:2;
+	}
+    </style>
+</head>
+
+<body>
+	
+    <include file="Index:header" />
+
+    <!--主体内容区-->
+    <div class="container-fluid">
+        <form method="post">
+      		<div class="row">
+            	<div class="col-md-2  col-sm-2"><img src="__PUBLIC__/Images/ceneo4LyDg8c.jpg" width="100" height="100">
+                </div>
+                <div class="col-md-10 col-sm-10">
+                    <div class="row">
+                    	<div class="col-md-3 col-xs-6">姓名：{$leader.name}</div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-md-3 col-xs-3">学校:成都东软学院</div>
+                        <div class="col-md-3 col-xs-3">QQ:{$leader.qq}</div>
+                        <div class="col-md-3 col-xs-5">邮箱:{$leader.email}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7 col-sm-7"></div>
+                        <div class="col-md-5 col-sm-5">
+                        	<div class="row">
+                            	<div class="col-md-4 col-sm-5">
+                                    <button type="button" class="btn btn-default btn-sm">修改个人资料</button>
+                                </div>
+                                <div class="col-md-4 col-sm-5">
+                                    <a href="creatzt.html"><button type="button" class="btn btn-primary btn-sm">创建展厅</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            
+            <div class="row">
+            	<div class="col-md-3 col-sm-3">您所上传过的作品：</div>
+                <div class="col-md-4 col-sm-4">
+                    <button class="btn btn-default col-sm-2" id="checkAll">全选</button>
+                    <button class="btn btn-default col-sm-2" style="margin-left:20px;" id="checkAllNo">全不选</button>
+                </div>
+                <div class="col-md-5 col-sm-5">
+                    <div class="row">
+                        <div class="col-md-4 "></div>
+                        <div class="col-md-3 col-sm-4 ">
+                            <select>
+                                <option>选择审核通过的作品</option>
+                                <option>选择审核未通过的作品</option>
+                            </select>
+                        </div>   
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container-fluid">
+           		<div class="row">
+                    <foreach name = "products" item = "value">
+                        <div class="col-md-2" exhibition="{$Think.get.id}" product="{$value.product.id}" grade="{$value.product.grade}" author='{:json_encode($value["product"]["author"])}' desc="{$value.product.intro}" product="{$value.product.id}" title="{$value.product.name}" picture='{:json_encode($value["product"]["effectPic"])}'>
+                            <div class="imgContainer"><img class="tk_container" src="{$value.product.thumb}" width="200px" height="200px"/><input class="checkboxContainer" type="checkbox" name="work" /></div>
+                            <div class="text-center workeName">作品名称：{$value.product.name}</div>
+                            <!-- <div class="text-center">作品作者：张山</div> -->
+                            <div class="text-center">作品评分：{$value.product.grade}</div>
+                        </div>
+                    </foreach>
+                </div>
+            </div>
+
+            <!-- <div class="container-fluid" style="margin-top:20px;">
+                <div class="row">
+                    <div style="margin-left:35%;">
+                            <button class="btn btn-primary col-sm-2" >通过审核</button>
+                            <button class="btn btn-default col-sm-2" style="margin-left:25px;">从展厅移除</button>
+                    </div>
+                </div>
+            </div> -->
+        </form>
+        
+
+        <!--隐藏弹框区域-->
+        <div id="hide_container" class="container-fluid" style="border:#999 solid 1px; position:absolute; z-index:10; top:35%; background-color:#FFF; display:none;">
+            <div class="text-right" id="close_btn">关闭</div>
+            <div class="row">
+                <div class="col-md-12">	
+                    <div class="col-md-6 col-sm-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img id="hide_img" src="__PUBLIC__/Images/imgDemo.jpg" width="90%">		
+                            </div>        
+                        </div>
+                        <div class="row">
+                            <ul id="hide_picture">
+                                <li>微电影宣传海报图</li>
+                                <li>微电影创意构思图</li>
+                                <li>微电影创恐怖花絮分享</li>
+                                <li>微电影创恐怖花絮分享2</li>
+                                <li>微电影创恐怖花絮分享3</li>
+                            </ul>
+                        </div>
+                    </div>
+                        
+                    <div class="col-md-6 col-sm-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3><span id="hide_title">恐怖电影制作</span></h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span id="hide_grade">作品评分：90分</span>
+                            </div>
+                            <!-- <div class="col-md-12">
+                                <span>推荐教师：张三老师</span>
+                            </div> -->
+                            <div id="hide_author">
+                                <div class="col-md-12">
+                                    <span>作者：张三</span>
+                                    <span>年级:2012级</span>
+                                    <span>影视制作</span>
+                                </div>
+                                <div class="col-md-12">
+                                    <span>作者：张三</span>
+                                    <span>年级:2012级</span>
+                                    <span>影视制作</span>
+                                </div>
+                            </div>
+                                
+                        </div>
+                        <div class="row">                        
+                            <div class="col-md-12">作品简介：</div>
+                            <div class="col-md-12" id="hide_desc">打架啊索拉卡丹江口萨拉的金卡零度可乐撒旦教卡死了道具卡四级联考的萨克雷丹江口萨拉的刻录机撒旦空间里撒旦教拉克丝大进口量的萨克雷的萨克局领导萨克家离得近凯萨琳大口径拉萨大口径撒旦记录卡撒娇了肯定撒进口量的撒两节课</div>
+                        </div>
+                        <div class="row" style="margin-top:10px;">
+        					<div class="col-md-12">
+                                <button id="hide_remove" class="btn btn-default col-sm-4">移除该推荐作品</button>						
+               					<button id="hide_verify" class="btn btn-primary col-sm-4" style="margin-left:15px;">通过审核</button>
+                            </div>
+                        </div> 
+                    </div> 
+                </div>
+            </div>   	  
+        </div>
+        <!--隐藏弹框区域结束-->
+   
+	</div>
+	
+	
+    
+    
+    <script src="__PUBLIC__/jquery.js"></script>		
+    <script>
+    	
+		$(function(){
+			$('#close_btn').click(function(){
+				
+				$('#hide_container').animate({
+						 opacity: 'toggle',
+					},'slow'
+				);
+				
+			});
+			
+			$('.imgContainer').click(function(){
+                
+                /**
+                grade="{$value.product.grade}" author="{:json_encode($value['product']['author'])}" desc="{$value.product.intro}" product="{$value.product.id}" title="{$value.product.name}" picture="{:json_encode($value['product']['effectPic'])}"
+                **/
+                var parent = $(this).parent();                
+                var grade = parent.attr('grade');
+                var author = eval(parent.attr('author'));
+                var desc = parent.attr('desc');
+                var title = parent.attr('title');
+                var picture = eval(parent.attr('picture'));
+
+                var exhibition = parent.attr('exhibition');
+                var product = parent.attr('product');
+                var verifyURL = "{:U(GROUP_NAME . '/Leader/verify')}";
+                var removeURL = "{:U(GROUP_NAME . '/Leader/remove')}";
+                verifyURL = verifyURL.replace('.html', '');
+                removeURL = removeURL.replace('.html', '');
+                verifyURL = verifyURL + '/exhibition/' + exhibition + '/product/' + product + '.html';
+                removeURL = removeURL + '/exhibition/' + exhibition + '/product/' + product + '.html';
+
+                $('#hide_verify').attr('url', verifyURL);
+                $('#hide_remove').attr('url', removeURL);
+				
+                $('#hide_title').text(title);
+                $('#hide_grade').text('作品评分：'+grade);
+                $('#hide_desc').text(desc);
+                var inner = "";
+                for (var i = 0; i < picture.length; i++) {
+                    inner += '<li picture="'+picture[i]+'">作品文件'+ (i+1) +'</li>';
+                }
+                $('#hide_picture').html(inner);
+                inner = '';
+                for (var i = 0; i < author.length; i++) {
+                    inner += '<div class="col-md-12"><span>作者：'+author[i].name+'</span></div>';
+                }
+                $('#hide_author').html(inner);
+				
+				
+				$('#hide_container').animate({
+						 opacity: 'toggle',
+						 diplay:'block',
+					},'slow'
+				)
+				.css({'display':'block','top':$(this)});
+			});
+			
+			$("#checkAll").click(function() {
+					
+				$("input[name='work']").each(function () {
+                    $(this).prop("checked", true);
+                }); 
+					
+            });
+			
+			$("#checkAllNo").click(function() {
+					
+				$("input[name='work']").each(function () {
+                    $(this).prop("checked", false);
+                }); 
+					
+            });
+
+			
+			$('#hide_verify').click(function() {
+                window.location.href = $(this).attr('url');
+            });
+
+            $('#hide_remove').click(function(event) {
+                window.location.href = $(this).attr('url');
+            });
+			
+		})
+			
+    
+    </script>       
+            
+</body>
+</html>

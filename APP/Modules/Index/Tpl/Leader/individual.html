@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>无标题文档</title>
+	<link href="__PUBLIC__/css/bootstrap.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/bootstrap-theme.css" rel="stylesheet">
+	<style>
+    
+	.container{
+		border: #CCC 1px solid;
+	}
+
+    
+    </style>
+</head>
+
+<body>
+	
+<include file = "Index:header" />
+	
+    
+    <!--主体内容区-->
+    <div class="container-fluid">
+  		<div class="row">
+        	
+        	<div class="col-md-2  col-sm-2"><img src="{$teacher.head|getURL=###}" width="100" height="100">
+            </div>
+			<div class="col-md-10 col-sm-10">
+            
+            	<div class="row">
+                	<div class="col-md-3 col-xs-6">姓名：{$teacher.name}</div>
+                </div>
+                
+                <div class="row">
+                	<div class="col-md-3 col-xs-3">学校:成都东软学院</div>
+                    <div class="col-md-3 col-xs-3">院系:数字艺术系</div>
+                    <div class="col-md-3 col-xs-3">管理专业:数字媒体技术</div>
+                    <div class="col-md-3 col-xs-3">通知：0条</div>
+                </div>
+                
+                <div class="row">     
+                    <div class="col-md-3 col-xs-3">QQ:{$teacher.qq}</div>
+                    <div class="col-md-3 col-xs-5">邮箱:{$teacher.mail}</div>
+                </div>
+                
+                <div class="row">
+                	
+                    <div class="col-md-7 col-sm-7"></div>
+                    <div class="col-md-3 col-sm-3">
+                    	<div class="row">
+                        	
+                        	<div class="col-md-4 col-sm-4">
+                            <a href="{:U(GROUP_NAME . '/Leader/information')}" class="btn btn-default btn-sm">修改用户信息</a>
+							</div>
+							<div class="col-sm-1"></div>
+                            <div class="col-md-4 col-sm-4">
+                            <a href="{:U(GROUP_NAME . '/Leader/addExhibition')}" class="btn btn-primary btn-sm">创建展厅</a></div>
+                            
+                        </div>
+                    </div>
+                </div>
+            	
+            </div>
+        </div>
+        <hr>
+        
+        <div class="row">
+        
+        	<div class="col-md-3 col-sm-3">以下是您所创建的展厅：</div>
+            <div class="col-md-9 col-sm-9">
+                
+                            <div class="row">
+                            	<div class="col-md-4 "></div>
+                                <div class="col-md-3 col-sm-4 ">
+                                	
+                                    <select>
+                                    	<option>筛选展厅</option>
+										<foreach name="exhibitions" item="exName">
+										<option>{$exName.name}</option>
+										</foreach>
+                                    </select>
+                                	
+                                </div>
+                                
+
+                                
+                                
+                            </div>
+            </div>
+        </div>
+        
+        
+        <div class="row" style="margin-top:50px;">
+        	<foreach name="exhibitions" item="value">
+        			<div class="col-md-3">
+                        <a href="{:U(GROUP_NAME . '/Leader/showRoom?id='.$value[id])}"><img class="tk_container" src="{$value.thumb|getURL=###}" width="100%" height="100%"/></a>
+                        <div class="text-center workeName">展厅名称：{$value.name}</div>
+                        <div class="text-center">审核状态：<if condition = "$value['status'] eq 'PUBLIC'">开放<else />关闭</if></div>
+                        <div class="text-center">展厅截止时间：{$value.EndTime|date="Y/m/d",###}</div>
+                    </div>
+            </foreach>
+                    
+                
+        
+        </div>	
+       
+                        </div> 
+
+	
+    
+            
+</body>
+</html>

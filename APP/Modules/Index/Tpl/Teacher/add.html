@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>创建课程</title>
+
+    <script type="text/javascript" src="__PUBLIC__/calendar.js" ></script>
+    <script type="text/javascript" src="__PUBLIC__/calendar-zh.js" ></script>
+    <script type="text/javascript" src="__PUBLIC__/calendar-setup.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/ImgCropper.css"/>
+    <link href="__PUBLIC__/css/bootstrap.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/bootstrap-theme.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/calendar.css" >
+
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand text-center" href="#">数字艺术展厅</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="#">首页<span class="sr-only">(current)</span></a></li>
+                <li ><a href="#">展厅<span class="sr-only">(current)</span></a></li>
+                <li class="active" ><a href="index.html">创建课程</a></li>
+                <li ><a href="home.php">退出<span class="sr-only">(current)</span></a></li>
+
+            </ul>           
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+<div class="container-fluid" >
+     <h3 class="text-center">开设课程</h3>
+    <form class="form-horizontal center-block" method="post" action="{:U(GROUP_NAME . '/Teacher/addAction')}">
+        <div class="form-group">
+            <label  class="col-sm-4 control-label ">所属学校:</label>
+            <div class="col-sm-4">
+                <input type="text" name="school" class="form-control text-center " value="{$school}" disabled="true">
+                <input type="hidden" name="school" value="{$Think.session.uschool}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label  class="col-sm-4 control-label ">任课老师:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control text-center " name="teacher" value="{$Think.session.uname}" disabled>
+                <input type="hidden" name="teacher" value="{$Think.session.uid}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label  class="col-sm-4 control-label ">课程名称:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control text-center "  name="name" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label  class="col-sm-4 control-label">作业提交开始时间:</label>
+
+            <div class="col-sm-4">
+                <input type="text" class="form-control text-center" value="{:date('Y-m-d',time())}" disabled>
+                <input type="hidden" name="btime" value="{:time()}">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label  class="col-sm-4 control-label">作业截止提交时间:</label>
+
+            <div class="col-sm-4">
+                <input type="text" class="form-control"  id="EntTime" name="stime" onclick="return showCalendar('EntTime', 'y-mm-dd');">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label">专业:</label>
+            <div class="col-sm-4">
+                <select  name="major" class="form-control  text-center" >
+                    <option value='0'>请选择专业</option>
+                    <foreach name="type" item = "vo">
+        				<option value='{$vo.id}'>{$vo.name}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label  class="col-sm-4 control-label ">课程简介:</label>
+            <div class="col-sm-4">
+                <textarea  class="form-control " style="height: 200px;"  name="intro" >
+                </textarea>
+            </div>
+        </div>
+
+
+        <div class="form-group" style="margin-top: 50px;">
+            <div class="col-sm-offset-4 col-sm-4 ">
+                <button type="submit" class="btn btn-primary form-control" >确认上传</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+</body>
+
+</html>
